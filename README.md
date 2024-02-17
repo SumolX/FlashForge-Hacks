@@ -1,7 +1,7 @@
 # FlashForge-Hacks
 This project contains a set of scripts trying to provide additional features and functionality not implemented by the official firmware.  It is an experimental research project and should be treated as such.
 
-1. Adds and SSH `dropbear` service to your printer
+1. Adds SSH `dropbear` service to your printer
 2. Updates the `root` password to `flashforge`
 
 # ATTENTION (PROCEED AT YOUR OWN RISK)
