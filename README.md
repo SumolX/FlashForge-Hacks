@@ -5,7 +5,7 @@ This project contains a set of scripts trying to provide additional features and
 2. Updates the `root` password to `flashforge`
 
 # ATTENTION (PROCEED AT YOUR OWN RISK)
-While this installer package will add a SSH Server to your printer and modify the root password to `flashforge` it does this by modifying the `auto_run.sh` script file which is used by the printer to manages updates and execute your printer's official software.
+While this installer package will add a SSH Server to your printer and modifies the root password to `flashforge` it does this by modifying the `auto_run.sh` script file which is used by the printer to manages updates and execute your printer's official software.
 
 There is ALWAYS a POSSIBILITY that an error could occur during installation and thus I am not responsible nor am I liable for rendering your printer useless.  While we do have some safeguards in place to prevent errors from happening during installation, PROCEED AT YOUR OWN RISK!
 
