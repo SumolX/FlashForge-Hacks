@@ -20,3 +20,8 @@ I have only tested against the Adventurer4-2.2.4-2.3-20230216 and the files used
 * Power ON printer and wait until the `FlashForge` upgrade complete tone has played.
 * Power OFF printer and remove USB flash disk.
 * Power ON printer and use your favorite SSH client to access the filesystem remotely!
+
+# Subscribe
+If you enjoyed this work and would like to stay up to date on any future findings please feel free to join my patreon.
+
+[<img src="https://brandlogos.net/wp-content/uploads/2021/12/Patreon_logo_old-1536x352.png" width="88" height="20"/>](https://patreon.com/sumolx?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink)
