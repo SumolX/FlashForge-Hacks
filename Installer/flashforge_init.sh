@@ -6,8 +6,10 @@ echo "" > $WORK_DIR/log.txt
 
 # Create and Copy Resources
 mkdir -p /opt/services/bin
+mkdir -p /opt/services/sbin
 mkdir -p /opt/services/www
 cp -a $WORK_DIR/bin/* /opt/services/bin/
+cp -a $WORK_DIR/sbin/* /opt/services/sbin/
 cp -a $WORK_DIR/www/* /opt/services/www/
 cp -a $WORK_DIR/scripts/autorun.sh /opt/services/autorun.sh
 
