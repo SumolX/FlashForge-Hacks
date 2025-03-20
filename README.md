@@ -3,7 +3,7 @@ This project contains a set of scripts trying to provide additional features and
 
 1. Adds `dropbear` SSH service to your printer
 2. Adds `httpd` WEB service to your printer.
-3. Updates the `root` password to `FlashForge`
+3. Updates the `root` password to `flashforge`
 
 # ATTENTION (PROCEED AT YOUR OWN RISK)
 While this installer package will add a SSH Server to your printer and modifies the root password to `flashforge` it does this by modifying the `auto_run.sh` script file which is used by the printer to manages updates and execute your printer's official software.
