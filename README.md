@@ -1,7 +1,7 @@
 # FlashForge-Hacks
 This project contains a set of scripts trying to provide additional features and functionality not implemented by the official firmware.
 
-1. Adds and SSH `dropbear` service to your printer
+1. Adds `dropbear` SSH service to your printer
 2. Updates the `root` password to `FlashForge`
 
 # ATTENTION (PROCEED AT YOUR OWN RISK)
@@ -15,7 +15,7 @@ Lastly, since the Adventurer 4 runs busybox, this also means your are running wi
 I have only tested against the Adventurer4-2.2.4-2.3-20230216 and the files used by this installer are based on the contents of the official firmware.  I have heavily modified the `flashforge_init.sh` script in order to install the SSH `dropbear` service and reused their `play` application to generate the upgrade completion tones.  The original official firmware files used can be found within the `Firmware` directory.
 
 # Installation
-* Copy all contents from the SSH directory and place them in the root of the USB flash disk.
+* Copy all contents from the `Installer` directory and place them in the root of the USB flash disk.
 * Power OFF printer and insert USB flash disk.
 * Power ON printer and wait until the `FlashForge` upgrade complete tone has played.
 * Power OFF printer and remove USB flash disk.
