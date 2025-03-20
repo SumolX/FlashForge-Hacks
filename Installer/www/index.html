@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            text-align: center;
+        }
+        .rotate-image {
+            transform: rotate(270deg);
+            margin-top: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="http://REPLACE_IPV4_ADDRESS:8080/?action=stream" alt="Adventure 4 Camera">
+    <img src="menu.png" alt="Adventure 4 Menu" class="rotate-image">
+
+    <script>                                                                    
+        var menuElement = document.getElementById('menu');                      
+        menuElement.src = 'menu.png?rand=' + Math.random();                     
+                                                                                
+        setInterval(function() {                                                
+            var menuElement = document.getElementById('menu');                  
+            menuElement.src = 'menu.png?rand=' + Math.random();                 
+        }, 500);                                                                
+    </script>
+</body>
+
+</html>
+

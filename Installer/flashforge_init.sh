@@ -4,13 +4,20 @@ set -x
 WORK_DIR=`dirname $0`
 echo "" > $WORK_DIR/log.txt
 
-cp $WORK_DIR/bin/* /bin/
-cp $WORK_DIR/scripts/services.sh /opt/
+# Create and Copy Resources
+mkdir -p /opt/services/bin
+mkdir -p /opt/services/www
+cp -a $WORK_DIR/bin/* /opt/services/bin/
+cp -a $WORK_DIR/www/* /opt/services/www/
+cp -a $WORK_DIR/scripts/autorun.sh /opt/services/autorun.sh
 
-ln -sfn /bin/dropbearmulti /bin/dropbear
-ln -sfn /bin/dropbearmulti /bin/scp
-ln -sfn /bin/dropbearmulti /bin/ssh
-ln -sfn /bin/dropbearmulti /bin/dropbearkey
+# Generate SymLinks
+ln -sfn /opt/services/bin/dropbearmulti /bin/dropbear
+ln -sfn /opt/services/bin/dropbearmulti /bin/scp
+ln -sfn /opt/services/bin/dropbearmulti /bin/ssh
+ln -sfn /opt/services/bin/dropbearmulti /bin/dropbearkey
+ln -sfn /opt/services/bin/busybox /bin/httpd
+ln -sfn /opt/services/bin/fbgrab /bin/fbgrab
 
 echo "Services installed" >> $WORK_DIR/log.txt
 sync
@@ -24,7 +31,7 @@ fi
 sync
 
 if [ ! $(grep services /opt/auto_run.sh) ]; then
-    echo "/opt/services.sh &" >> /opt/auto_run.sh
+    echo "/opt/services/autorun.sh &" >> /opt/auto_run.sh
     echo "Added services to auto_run.sh" >> $WORK_DIR/log.txt
 fi
 sync
