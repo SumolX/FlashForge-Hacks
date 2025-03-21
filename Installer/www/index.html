@@ -6,8 +6,7 @@
         body {
             text-align: center;
         }
-        .rotate-image {
-            transform: rotate(270deg);
+        #menu {
             margin-top: 200px;
         }
     </style>
@@ -15,17 +14,47 @@
 
 <body>
     <img src="http://REPLACE_IPV4_ADDRESS:8080/?action=stream" alt="Adventure 4 Camera">
-    <img src="menu.png" alt="Adventure 4 Menu" class="rotate-image">
+    <canvas id="menu">
 
-    <script>                                                                    
-        var menuElement = document.getElementById('menu');                      
-        menuElement.src = 'menu.png?rand=' + Math.random();                     
-                                                                                
-        setInterval(function() {                                                
-            var menuElement = document.getElementById('menu');                  
-            menuElement.src = 'menu.png?rand=' + Math.random();                 
-        }, 500);                                                                
-    </script>
+    <script>
+        let canvas = document.getElementById("menu");  
+        let ctx = canvas.getContext("2d");
+        let width = 800;                                      
+        let height = 480;                                         
+        let line_length = width;
+        canvas.width = width;
+        canvas.height = height;
+        
+        function refreshMenu() {
+            fetch("menu.fb")
+            .then(response => response.arrayBuffer())
+            .then(array_buffer => {
+                let inbuffer = new Uint8ClampedArray(array_buffer);
+                let tmpbuffer = new Uint8ClampedArray(width * height * 4);
+
+                for (row=0; row<height; row++) {
+                    for (col=0; col<width; col++) {
+                        let srcidx = 2 * (row * line_length + col);
+                        let dstidx = 4 * (row * width + col);
+                        /* RED   = 0 */
+                        tmpbuffer[dstidx+2] = (inbuffer[srcidx] & 0x1f) << 3;
+                        /* GREEN = 1 */
+                        tmpbuffer[dstidx+1] = (((inbuffer[srcidx+1] & 0x7) << 3) | (inbuffer[srcidx] & 0xE0) >> 5) << 2;
+                        /* BLUE  = 2 */
+                        tmpbuffer[dstidx+0] = (inbuffer[srcidx+1] & 0xF8);
+                        /* ALPHA = 3 */
+                        tmpbuffer[dstidx+3] = 255;
+                    }
+                }
+
+                let image_data = new ImageData(tmpbuffer, width, height);
+                ctx.putImageData(image_data, 0, 0);
+                canvas.style.transform = "rotate(-90deg)";
+            })
+        }
+
+        setInterval(refreshMenu, 500);
+    </script> 
 </body>
 
 </html>
