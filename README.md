@@ -20,7 +20,12 @@ I have only tested against the Adventurer4-2.2.4-2.3-20230216 and the files used
 * Power OFF printer and insert USB flash disk.
 * Power ON printer and wait until the `FlashForge` upgrade complete tone has played.
 * Power OFF printer and remove USB flash disk.
-* Power ON printer and use your favorite SSH client to access the filesystem remotely!
+* Power ON printer
+  * Use your favorite SSH client to access the filesystem remotely!
+  * Use your favorite Browser to view your printer's camera and UI!
+  * Use OrcaSlicer's Device tab to view your prints in real-time!
+
+![WebUI](Images/OrcaSlicer-ADV4-WebUI-Printing.png)
 
 # Subscribe
 If you enjoyed this work and would like to stay up to date on any future findings please feel free to join my patreon.
