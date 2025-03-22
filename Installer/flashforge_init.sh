@@ -19,6 +19,7 @@ ln -sfn /opt/services/bin/dropbearmulti /bin/scp
 ln -sfn /opt/services/bin/dropbearmulti /bin/ssh
 ln -sfn /opt/services/bin/dropbearmulti /bin/dropbearkey
 ln -sfn /opt/services/bin/busybox /bin/httpd
+ln -sfn /opt/services/bin/busybox /bin/nc
 
 echo "Services installed" >> $WORK_DIR/log.txt
 sync
