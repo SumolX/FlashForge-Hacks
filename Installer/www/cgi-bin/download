@@ -1,0 +1,24 @@
+#!/bin/ash
+
+# Includes
+. ./constants
+. ./utils
+
+# Handlers
+on_download() {
+    if test "$?" -eq 0 -a -f ${DATA_PATH}/$1; then
+        utils_send_binary_file "${DATA_PATH}" "$1"
+        echo "Status: 200 OK"
+    else
+        echo "Status: 404 Not Found"
+    fi
+}
+
+# Parse Request: /cgi-bin/download?filename.ext
+if [ -z $QUERY_STRING ]; then
+    echo "Status: 400 Bad Request"
+else
+    IFS="&"
+    set -- $QUERY_STRING
+    on_download $1
+fi

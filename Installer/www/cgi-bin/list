@@ -1,0 +1,29 @@
+#!/bin/ash
+
+# Includes
+. ./constants
+. ./utils
+
+# Handlers
+on_list() {
+    firstpass=0
+    echo "Content-Type: text/html"
+    echo ""
+    echo -e -n "{\"files\":["
+    find $DATA_PATH -iname '*.g*' -print0 | xargs -0 -n 1 echo | while read file
+    do
+        [ -z "$file" ] && break
+        detail="$(echo $file | sed -e 's@\ @\\ @g' | xargs ls -l)"
+        format="$(echo $detail | awk '{printf "{\"date\":\"%s %s %s\",\"size\":%s,", $6,$7,$8,$5}')"
+        [ $firstpass == 1 ] && echo -e -n "," || firstpass=1
+        echo -e -n "$format \"file\":\"${file##*/}\"}"
+    done
+    echo -e -n "]}"
+}
+
+# Parse Request: cgi-bin/list
+if [ -z $QUERY_STRING ]; then
+    on_list
+else
+    echo "Status: 400 Bad Request"
+fi
