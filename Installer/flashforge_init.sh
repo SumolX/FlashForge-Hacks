@@ -4,6 +4,9 @@ set -x
 WORK_DIR=`dirname $0`
 echo "" > $WORK_DIR/log.txt
 
+# Notify User we have STARTED!!!!!
+cat $WORK_DIR/start.img > /dev/fb0
+
 # Create and Copy Resources
 mkdir -p /opt/services/bin
 mkdir -p /opt/services/sbin
@@ -42,5 +45,7 @@ $WORK_DIR/scripts/rootpasswd.sh
 echo "Updated root password" >> $WORK_DIR/log.txt
 sync
 
+# Notify User we have FINISHED!!
+cat $WORK_DIR/end.img > /dev/fb0
 $WORK_DIR/play
 exit 0

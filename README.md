@@ -18,7 +18,9 @@ I have only tested against the Adventurer4-2.2.4-2.3-20230216 and the files used
 # Installation
 * Copy all contents from the `Installer` directory and place them in the root of the USB flash disk.
 * Power OFF printer and insert USB flash disk.
-* Power ON printer and wait until the `FlashForge` upgrade complete tone has played.
+* Power ON printer
+  * Printer will display upgrade in progress.
+  * Wait until display shows upgrade completed and plays a melody.
 * Power OFF printer and remove USB flash disk.
 * Power ON printer
   * Use your favorite SSH client to access the filesystem remotely!
