@@ -29,6 +29,13 @@ I have only tested against the Adventurer4-2.2.4-2.3-20230216 and the files used
 
 ![WebUI](Images/OrcaSlicer-ADV4-WebUI-Printing.png)
 
+# Debugging Installation
+* If for some reason the update does not take effect executed the following steps and report back!
+  * Copy `flashforge_init.sh.debug` to the root of the USB stick.
+  * Rename `flashforge_init.sh.debug` -> `flashforge_init.sh` on the USB stick.
+  * Follow the steps outlined above within the `Installation` process.
+  * Report back with the `log.txt` stored on the root of the USB stick.
+
 # Subscribe
 If you enjoyed this work and would like to stay up to date on any future findings please feel free to join my patreon.
 
