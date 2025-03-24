@@ -16,6 +16,11 @@ cp -a $WORK_DIR/sbin/* /opt/services/sbin/
 cp -a $WORK_DIR/www/* /opt/services/www/
 cp -a $WORK_DIR/scripts/autorun.sh /opt/services/autorun.sh
 
+# Update executable permissions
+chmod +x /opt/services/bin/*
+chmod +x /opt/services/sbin/*
+chmod +x /opt/services/autorun.sh
+
 # Generate SymLinks
 ln -sfn /opt/services/bin/dropbearmulti /bin/dropbear
 ln -sfn /opt/services/bin/dropbearmulti /bin/scp
