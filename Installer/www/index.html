@@ -5,87 +5,29 @@
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/css/global.css?version=1">
+    <script type="text/javascript" src="/script/global.js?version=1"></script>
     <title>FlashForge Adventurer 4</title>
-
-    <style>
-        body {
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>
-    <div style="display: table; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-        <div style="display: table-row;">
-            <div style="display: table-cell;">
+    <div id="main">
+        <div id="page">
+            <div id="column">
                 <img src="http://REPLACE_IPV4_ADDRESS:8080/?action=stream" alt="Adventure 4 Camera">
                 </br>
-                <button type="button" onclick="printPause()" style="width: 100px; height: 30px; float: left;">Pause Print</button>
-                <button type="button" onclick="printResume()" style="width: 100px; height: 30px; float: left; margin-left: 10px">Resume Print</button>
-                <button type="button" onclick="printCancel()" style="width: 100px; height: 30px; float: right;">Cancel Print</button>
+                <button id="btnPause" type="button" onclick="onPrintPause()">Pause Print</button>
+                <button id="btnResume" type="button" onclick="onPrintResume()">Resume Print</button>
+                <button id="btnCancel" type="button" onclick="onPrintCancel()">Cancel Print</button>
             </div>
-            <div style="display: table-cell;">
-                <canvas id="menu">
+            <div id="column">
+                <canvas id="touchScreen">
             </div>
         </div>
     </div>
 
     <script>
-        let canvas = document.getElementById("menu");  
-        let ctx = canvas.getContext("2d");
-        let width = 800;                                      
-        let height = 480;                                         
-        let line_length = width;
-        canvas.width = width;
-        canvas.height = height;
-        
-        function refreshMenu() {
-            fetch("menu.fb")
-            .then(response => response.arrayBuffer())
-            .then(array_buffer => {
-                let inbuffer = new Uint8ClampedArray(array_buffer);
-                let tmpbuffer = new Uint8ClampedArray(width * height * 4);
-
-                for (row=0; row<height; row++) {
-                    for (col=0; col<width; col++) {
-                        let srcidx = 2 * (row * line_length + col);
-                        let dstidx = 4 * (row * width + col);
-                        /* RED   = 0 */
-                        tmpbuffer[dstidx+2] = (inbuffer[srcidx] & 0x1f) << 3;
-                        /* GREEN = 1 */
-                        tmpbuffer[dstidx+1] = (((inbuffer[srcidx+1] & 0x7) << 3) | (inbuffer[srcidx] & 0xE0) >> 5) << 2;
-                        /* BLUE  = 2 */
-                        tmpbuffer[dstidx+0] = (inbuffer[srcidx+1] & 0xF8);
-                        /* ALPHA = 3 */
-                        tmpbuffer[dstidx+3] = 255;
-                    }
-                }
-
-                let image_data = new ImageData(tmpbuffer, width, height);
-                ctx.putImageData(image_data, 0, 0);
-                canvas.style.transform = "rotate(-90deg)";
-            })
-        }
-
-        setInterval(refreshMenu, 500);
-
-        function printPause() {
-            (async () => {
-                const res = await fetch('/cgi-bin/print-pause', {});
-            })();
-        }
-
-        function printResume() {
-            (async () => {
-                const res = await fetch('/cgi-bin/print-resume', {});
-            })();
-        }
-
-        function printCancel() {
-            (async () => {
-                const res = await fetch('/cgi-bin/print-cancel', {});
-            })();
-        }
+        initPage();
     </script> 
 </body>
 
