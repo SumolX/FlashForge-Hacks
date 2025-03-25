@@ -55,6 +55,7 @@ function initPage() {
             let image_data = new ImageData(tmpbuffer, width, height);
             ctx.putImageData(image_data, 0, 0);
             canvas.style.transform = "rotate(-90deg)";
+            canvas.style.border = "1px solid black";
         })
     }
 

@@ -64,18 +64,37 @@ button {
     float: right;
 }
 
-#main {
-    display: table;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 #page {
     display: table-row;
 }
 
 #column {
     display: table-cell;
+}
+
+#liveCamera {
+    width: 641px;
+    height: 481px;
+    border: 1px solid black;
+}
+
+@media only screen and (-webkit-device-pixel-ratio: 3) {
+    #main {
+        display: table;
+        position: relative;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        transform: none;
+    }
+}
+@media only screen and (min-width: 720px) {
+    #main {
+        display: table;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
