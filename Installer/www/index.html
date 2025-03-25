@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FlashForge Adventurer 4</title>
+
     <style>
         body {
             text-align: center;
-        }
-        #menu {
-            margin-top: 200px;
         }
     </style>
 </head>
 
 <body>
-    <img src="http://REPLACE_IPV4_ADDRESS:8080/?action=stream" alt="Adventure 4 Camera">
-    <canvas id="menu">
+    <div style="display: table; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <div style="display: table-row;">
+            <div style="display: table-cell;">
+                <img src="http://REPLACE_IPV4_ADDRESS:8080/?action=stream" alt="Adventure 4 Camera">
+                </br>
+                <button type="button" onclick="printPause()" style="width: 100px; height: 30px; float: left;">Pause Print</button>
+                <button type="button" onclick="printResume()" style="width: 100px; height: 30px; float: left; margin-left: 10px">Resume Print</button>
+                <button type="button" onclick="printCancel()" style="width: 100px; height: 30px; float: right;">Cancel Print</button>
+            </div>
+            <div style="display: table-cell;">
+                <canvas id="menu">
+            </div>
+        </div>
+    </div>
 
     <script>
         let canvas = document.getElementById("menu");  
@@ -54,6 +68,24 @@
         }
 
         setInterval(refreshMenu, 500);
+
+        function printPause() {
+            (async () => {
+                const res = await fetch('/cgi-bin/print-pause', {});
+            })();
+        }
+
+        function printResume() {
+            (async () => {
+                const res = await fetch('/cgi-bin/print-resume', {});
+            })();
+        }
+
+        function printCancel() {
+            (async () => {
+                const res = await fetch('/cgi-bin/print-cancel', {});
+            })();
+        }
     </script> 
 </body>
 

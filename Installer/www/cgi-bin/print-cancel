@@ -1,0 +1,18 @@
+#!/bin/ash
+
+# Includes
+. ./constants
+. ./utils
+
+# Handlers
+on_cancel() {
+    echo "~M26\r\n" | nc localhost 8899 2>/dev/null
+    echo "Status: 200 OK"
+}
+
+# Parse Request: cgi-bin/list
+if [ -z $QUERY_STRING ]; then
+    on_cancel
+else
+    echo "Status: 400 Bad Request"
+fi
