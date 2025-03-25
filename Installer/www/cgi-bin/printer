@@ -22,6 +22,27 @@ on_pause() {
     echo "Status: 200 OK"
 }
 
+# Handle: cgi-bin/printer?temperature
+on_temperature() {
+    echo "Content-type: text/html"
+    echo ""
+    echo "~M105\r\n" | nc localhost 8899
+}
+
+# Handle: cgi-bin/printer?status
+on_status() {
+    echo "Content-type: text/html"
+    echo ""
+    echo "~M27\r\n" | nc localhost 8899
+}
+
+# Handle: cgi-bin/printer?endstop
+on_endstop() {
+    echo "Content-type: text/html"
+    echo ""
+    echo "~M119\r\n" | nc localhost 8899
+}
+
 # Handle: cgi-bin/printer?camera
 on_camera() {
     echo "Content-type: text/html"
@@ -42,6 +63,12 @@ else
         on_resume
     elif [ ${key} == "pause" ]; then
         on_pause
+    elif [ ${key} == "temperature" ]; then
+        on_temperature
+    elif [ ${key} == "status" ]; then
+        on_status
+    elif [ ${key} == "endstop" ]; then
+        on_endstop
     elif [ ${key} == "camera" ]; then
         on_camera
     else
