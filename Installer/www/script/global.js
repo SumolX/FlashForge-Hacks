@@ -30,6 +30,17 @@ function initPage() {
     canvas.width = width;
     canvas.height = height;
 
+    function refreshCameraURL() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("liveCamera").src = xhttp.responseText;
+            }
+        };
+        xhttp.open("GET", "cgi-bin/status?camera", true);
+        xhttp.send();
+    }
+
     function refreshMenu() {
         fetch("menu.fb")
         .then(response => response.arrayBuffer())
@@ -59,5 +70,6 @@ function initPage() {
         })
     }
 
+    refreshCameraURL();
     setInterval(refreshMenu, 500);
 }

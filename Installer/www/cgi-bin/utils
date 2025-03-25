@@ -1,3 +1,13 @@
+# Get host ip address
+utils_get_host_address() {
+    echo "$(ip a | grep 'scope global' | awk '{print $2}' | cut -d'/' -f 1)"
+}
+
+# Get live camera url
+utils_get_camera_url() {
+    echo "http://$(utils_get_host_address):8080/?action=stream"
+}
+
 # Returns success on substring match 
 utils_has_string() {
     str="$1"
