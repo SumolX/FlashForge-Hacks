@@ -6,19 +6,19 @@ function postCommand(url) {
 
 function onPrintPause() {
     if (confirm("Are your sure you want to pause printing?") == true) {
-        postCommand('/cgi-bin/print-pause');
+        postCommand('/cgi-bin/printer?pause');
     }
 }
 
 function onPrintResume() {
     if (confirm("Are your sure you want to resume printing?") == true) {
-        postCommand('/cgi-bin/print-resume');
+        postCommand('/cgi-bin/printer?resume');
     }
 }
 
 function onPrintCancel() {
     if (confirm("Are your sure you want to cancel printing?") == true) {
-        postCommand('/cgi-bin/print-cancel');
+        postCommand('/cgi-bin/printer?cancel');
     }
 }
 
@@ -37,7 +37,7 @@ function initPage() {
                 document.getElementById("liveCamera").src = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "cgi-bin/status?camera", true);
+        xhttp.open("GET", "cgi-bin/printer?camera", true);
         xhttp.send();
     }
 

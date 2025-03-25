@@ -1,0 +1,50 @@
+#!/bin/ash
+
+# Includes
+. ./constants
+. ./utils
+
+# Handle: cgi-bin/printer?cancel
+on_cancel() {
+    echo "~M26\r\n" | nc localhost 8899 2>/dev/null
+    echo "Status: 200 OK"
+}
+
+# Handle: cgi-bin/printer?resume
+on_resume() {
+    echo "~M24\r\n" | nc localhost 8899 2>/dev/null
+    echo "Status: 200 OK"
+}
+
+# Handle: cgi-bin/printer?pause
+on_pause() {
+    echo "~M25\r\n" | nc localhost 8899 2>/dev/null
+    echo "Status: 200 OK"
+}
+
+# Handle: cgi-bin/printer?camera
+on_camera() {
+    echo "Content-type: text/html"
+    echo ""
+    utils_get_camera_url
+}
+
+# Parse Requests
+if [ -z $QUERY_STRING ]; then
+    return "Status: 400 Bad Request"
+else
+    IFS="&"
+    set -- $QUERY_STRING
+    key="${1%=*}"
+    if [ ${key} == "cancel" ]; then
+        on_cancel
+    elif [ ${key} == "resume" ]; then
+        on_resume
+    elif [ ${key} == "pause" ]; then
+        on_pause
+    elif [ ${key} == "camera" ]; then
+        on_camera
+    else
+        echo "Status: 400 Bad Request"
+    fi
+fi
