@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="/css/global.css?version=1">
+    <link rel="stylesheet" href="/css/global.css?version=2">
     <script type="text/javascript" src="/script/global.js?version=1"></script>
     <title>FlashForge Adventurer 4</title>
 </head>
@@ -13,7 +13,7 @@
 <body>
     <div id="main">
         <div id="page">
-            <div id="column">
+            <div id="colLiveCamera">
                 <img id="liveCamera"
                      src="http://REPLACE_IPV4_ADDRESS:8080/?action=stream"
                      onerror="this.onerror=null;this.src='http://REPLACE_IPV4_ADDRESS:8080/?action=stream';"
@@ -23,7 +23,7 @@
                 <button id="btnResume" type="button" onclick="onPrintResume()">Resume Print</button>
                 <button id="btnCancel" type="button" onclick="onPrintCancel()">Cancel Print</button>
             </div>
-            <div id="column">
+            <div id="colTouchScreen">
                 <canvas id="touchScreen">
             </div>
         </div>
