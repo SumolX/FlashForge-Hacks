@@ -5,7 +5,6 @@ body {
     font: 1em RaleWay, Open Sans, Helvetica, sans-serif;
     color: #ffffff;
     background: #313131;
-    overflow-x: auto;
 }
 
 h1,
@@ -15,29 +14,15 @@ h4,
 h5 {
     margin: 0;
     padding: 0;
-    font-family: Open sans, sans-serif;
+    font-family: Open Sans, sans-serif;
     font-weight: 500;
 }
 
-h1 {
-    font-size: 1.8em;
-}
-
-h2 {
-    font-size: 1.5em;
-}
-
-h3 {
-    font-size: 1.2em;
-}
-
-h4 {
-    font-size: 1em;
-}
-
-h5 {
-    font-size: .9em;
-}
+h1 { font-size: 1.8em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.9em; }
 
 button {
     color: #ffffff;
@@ -64,45 +49,78 @@ button {
     float: right;
 }
 
+/* Camera styling */
 #liveCamera {
-    width: 641px;
-    height: 481px;
+    width: 100%;
+    height: auto;
     border: 1px solid black;
+    margin-top: 50px;
 }
 
-@media only screen and (-webkit-device-pixel-ratio: 3) {
-    #main {
-        transform: scale(.6, .6);
-    }
+/* Responsive layout container */
+.responsive-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
 
-    #colLiveCamera {
-        float: right;
-        margin-top: 50px;
-        margin-right: -100px;
-        width: 641px;
-    }
+/* Column style */
+.responsive-column {
+    flex: 1 1 45%;
+    min-width: 300px;
+}
 
-    #colTouchScreen {
-        float: right;
-        margin-top: 300px;
-        margin-right: -190px;
+/* Canvas styling */
+canvas#touchScreen {
+    aspect-ratio: 600 / 360;
+    width: 100%;
+    max-width: 600px;
+    background-color: #eee;
+    border: 1px solid black;
+    display: block;
+    margin: 0 auto;
+    transform: none;
+    margin-top: 150px;
+}
+
+/* Only rotate canvas on desktop */
+@media (min-width: 1024px) {
+    canvas#touchScreen {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: auto;
+        height: auto;
+        max-height: 80vh;
+        max-width: 100%;
     }
 }
-@media only screen and (min-width: 720px) {
-    #main {
-        display: table;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+/* Mobile layout: stack vertically */
+@media (max-width: 768px) {
+    .responsive-container {
+        flex-direction: column;
+        align-items: center;
     }
 
-    #page {
-        display: table-row;
+    .responsive-column {
+        width: 90%;
     }
 
-    #colLiveCamera,  
-    #colTouchScreen {
-        display: table-cell;
+    canvas#touchScreen {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: fit-content;
+        height: fit-content;
     }
 }
+@media (max-width: 600px) {
+    #btnPause, #btnResume, #btnCancel {
+        float: none;
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
