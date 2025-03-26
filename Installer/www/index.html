@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<title>FlashForge Adventurer 4</title>
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/css/global.css?version=2">
     <script type="text/javascript" src="/script/global.js?version=1"></script>
-    <title>FlashForge Adventurer 4</title>
-</head>
+ </head>
 
 <body>
-    <div id="main">
-        <div id="page">
-            <div id="colLiveCamera">
-                <img id="liveCamera" alt="Adventure 4 Camera">
-                </br>
-                <button id="btnPause" type="button" onclick="onPrintPause()">Pause Print</button>
-                <button id="btnResume" type="button" onclick="onPrintResume()">Resume Print</button>
-                <button id="btnCancel" type="button" onclick="onPrintCancel()">Cancel Print</button>
-            </div>
-            <div id="colTouchScreen">
-                <canvas id="touchScreen">
-            </div>
+    <h1 class="global-center"><b>Flashforge Dashboard</b></h1>
+    <div id="page" class="responsive-container">
+        <div id="colLiveCamera" class="responsive-column">
+            <img id="liveCamera"
+                 src="http://REPLACE_IPV4_ADDRESS:8080/?action=stream"
+                 onerror="this.onerror=null;this.src='http://REPLACE_IPV4_ADDRESS:8080/?action=stream';"
+                 alt="Adventurer 4 Camera">
+            <br />
+            <button id="btnPause" type="button" onclick="onPrintPause()">Pause Print</button>
+            <button id="btnResume" type="button" onclick="onPrintResume()">Resume Print</button>
+            <button id="btnCancel" type="button" onclick="onPrintCancel()">Cancel Print</button>
+        </div>
+        <div id="colTouchScreen" class="responsive-column">
+            <canvas id="touchScreen"></canvas>
         </div>
     </div>
 
