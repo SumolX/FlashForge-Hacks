@@ -1,2 +1,3 @@
 HTML_PATH=".."
 DATA_PATH="/data"
+CONF_PATH="/opt/services/www/settings"

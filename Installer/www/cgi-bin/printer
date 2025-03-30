@@ -50,6 +50,19 @@ on_camera() {
     utils_get_camera_url
 }
 
+# Handle: cgi-bin/printer?camera-url-store=value
+on_camera_url_store() {
+    mkdir -p $CONF_PATH
+    echo "$1" > $CONF_PATH/camera-url.cfg
+    echo "Status: 200 OK"
+}
+
+# Handle: cgi-bin/printer?camera-url-clear
+on_camera_url_clear() {
+    rm -rf $CONF_PATH/camera-url.cfg
+    echo "Status: 200 OK"
+}
+
 # Parse Requests
 if [ -z $QUERY_STRING ]; then
     return "Status: 400 Bad Request"
@@ -69,6 +82,10 @@ else
         on_status
     elif [ ${key} == "endstop" ]; then
         on_endstop
+    elif [ ${key} == "camera-url-store" ]; then
+        on_camera_url_store "${1#*=}"
+    elif [ ${key} == "camera-url-clear" ]; then
+        on_camera_url_clear
     elif [ ${key} == "camera" ]; then
         on_camera
     else

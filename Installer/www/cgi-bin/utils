@@ -5,7 +5,11 @@ utils_get_host_address() {
 
 # Get live camera url
 utils_get_camera_url() {
-    echo "http://$(utils_get_host_address):8080/?action=stream"
+    if test -f $CONF_PATH/camera-url.cfg; then
+        cat $CONF_PATH/camera-url.cfg
+    else
+        echo "http://$(utils_get_host_address):8080/?action=stream"
+    fi
 }
 
 # Returns success on substring match 
