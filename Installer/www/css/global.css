@@ -25,28 +25,38 @@ h4 { font-size: 1em; }
 h5 { font-size: 0.9em; }
 
 button {
-    color: #ffffff;
-    background-color: #646464;
-    font-size: 1em;
-    border-style: none;
-    border-radius: 4px;
-    padding: 3px;
+    background-color: #f0a500;
+    color: white;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    width: 140px;
-    height: 30px;
+    transition: background-color 0.2s ease-in-out;
 }
 
 #btnPause {
-    float: left;
+    background-color: #ffaa00;
+}
+
+#btnPause:hover {
+    background-color: #ffaa00;
 }
 
 #btnResume {
-    float: left;
-    margin-left: 10px;
+    background-color: #36daa8;
+}
+
+#btnResume:hover {
+    background-color: #2cdaa5;
 }
 
 #btnCancel {
-    float: right;
+    background-color: #e04f5f; 
+}
+
+#btnCancel:hover {
+    background-color: #d33; 
 }
 
 /* Camera styling */
@@ -75,9 +85,9 @@ button {
 
 /* Canvas styling */
 canvas#touchScreen {
-    aspect-ratio: 600 / 360;
+    aspect-ratio: 800 / 480;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     background-color: #eee;
     border: 1px solid black;
     display: block;
@@ -87,7 +97,7 @@ canvas#touchScreen {
 }
 
 /* Only rotate canvas on desktop */
-@media (min-width: 1024px) {
+@media (max-width: 1200px) {
     canvas#touchScreen {
         transform: rotate(-90deg);
         transform-origin: center center;
@@ -97,6 +107,18 @@ canvas#touchScreen {
         max-width: 100%;
     }
 }
+
+@media (min-width: 1201px) {
+    canvas#touchScreen {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: auto;
+        height: auto;
+        max-height: 80vh;
+        max-width: 100%;
+    }
+}
+
 /* Mobile layout: stack vertically */
 @media (max-width: 768px) {
     .responsive-container {
@@ -105,17 +127,18 @@ canvas#touchScreen {
     }
 
     .responsive-column {
-        width: 90%;
+        width: 100%;
     }
 
     canvas#touchScreen {
         transform: rotate(-90deg);
         transform-origin: center center;
-        width: fit-content;
-        height: fit-content;
+        width: auto;
+        height: auto;
     }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 992px) {
     #btnPause, #btnResume, #btnCancel {
         float: none;
         display: block;
@@ -123,4 +146,3 @@ canvas#touchScreen {
         margin-bottom: 5px;
     }
 }
-
