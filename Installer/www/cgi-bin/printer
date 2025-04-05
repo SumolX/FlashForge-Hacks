@@ -1,8 +1,9 @@
 #!/bin/ash
 
 # Includes
-. ./constants
-. ./utils
+BASEDIR=$(dirname "$0")
+. "$BASEDIR/constants"
+. "$BASEDIR/utils"
 
 # Handle: cgi-bin/printer?cancel
 on_cancel() {
@@ -63,32 +64,54 @@ on_camera_url_clear() {
     echo "Status: 200 OK"
 }
 
+# Handle: cgi-bin/printer?lighton
+on_lighton() {
+    echo "Content-type: text/html"
+    echo ""
+    echo "~M146 r255 g255 b255" | nc localhost 8899 2>/dev/null
+    echo "Status: 200 OK"
+}
+
+# Handle: cgi-bin/printer?lightoff
+on_lightoff() {
+    echo "Content-type: text/html"
+    echo ""
+    echo "~M146 r0 g0 b0" | nc localhost 8899 2>/dev/null
+    echo "Status: 200 OK"    
+}
+
 # Parse Requests
-if [ -z $QUERY_STRING ]; then
-    return "Status: 400 Bad Request"
+if [ -z "$QUERY_STRING" ]; then
+    echo "Status: 400 Bad Request"
+    exit 1
 else
     IFS="&"
     set -- $QUERY_STRING
     key="${1%=*}"
-    if [ ${key} == "cancel" ]; then
+    if [ "$key" = "cancel" ]; then
         on_cancel
-    elif [ ${key} == "resume" ]; then
+    elif [ "$key" = "resume" ]; then
         on_resume
-    elif [ ${key} == "pause" ]; then
+    elif [ "$key" = "pause" ]; then
         on_pause
-    elif [ ${key} == "temperature" ]; then
+    elif [ "$key" = "temperature" ]; then
         on_temperature
-    elif [ ${key} == "status" ]; then
+    elif [ "$key" = "status" ]; then
         on_status
-    elif [ ${key} == "endstop" ]; then
+    elif [ "$key" = "endstop" ]; then
         on_endstop
     elif [ ${key} == "camera-url-store" ]; then
         on_camera_url_store "${1#*=}"
     elif [ ${key} == "camera-url-clear" ]; then
         on_camera_url_clear
-    elif [ ${key} == "camera" ]; then
+    elif [ "$key" = "camera" ]; then
         on_camera
+    elif [ "$key" = "lighton" ]; then
+        on_lighton
+    elif [ "$key" = "lightoff" ]; then
+        on_lightoff
     else
         echo "Status: 400 Bad Request"
+        exit 1
     fi
 fi

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/css/global.css?version=2">
-    <script type="text/javascript" src="/script/global.js?version=1"></script>
- </head>
+    <script type="text/javascript" src="/script/global.js?version=3"></script>
+</head>
 
 <body>
 	<header style="background-color: #222; color: #fff; padding: 10px 20px; text-align: center; font-size: 1.5em; font-weight: bold; border-bottom: 2px solid #444;"> Flashforge Adventurer 4 Dashboard </header>
@@ -18,6 +18,7 @@
             <button id="btnPause" type="button" onclick="onPrintPause()">Pause Print</button>
             <button id="btnResume" type="button" onclick="onPrintResume()">Resume Print</button>
             <button id="btnCancel" type="button" onclick="onPrintCancel()">Cancel Print</button>
+            <button id="btnToggleLight" type="button" onclick="onToggleLight()">Toggle Light</button>
         </div>
         <div id="colTouchScreen" class="responsive-column">
             <canvas id="touchScreen"></canvas>

@@ -59,6 +59,14 @@ button {
     background-color: #d33; 
 }
 
+#btnToggleLight {
+    background-color: #5c6bc0;
+}
+
+#btnToggleLight:hover {
+    background-color: #3f51b5;
+}
+
 /* Camera styling */
 #liveCamera {
     width: 100%;

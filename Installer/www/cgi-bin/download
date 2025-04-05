@@ -1,8 +1,9 @@
 #!/bin/ash
 
 # Includes
-. ./constants
-. ./utils
+BASEDIR=$(dirname "$0")
+. "$BASEDIR/constants"
+. "$BASEDIR/utils"
 
 # Handlers
 on_download() {

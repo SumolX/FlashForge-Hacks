@@ -22,6 +22,17 @@ function onPrintCancel() {
     }
 }
 
+let lightIsOn = false;
+
+function onToggleLight() {
+    if (lightIsOn) {
+        postCommand('/cgi-bin/printer?lightoff');
+    } else {
+        postCommand('/cgi-bin/printer?lighton');
+    }
+    lightIsOn = !lightIsOn;
+}
+
 function initPage() {
     let canvas = document.getElementById("touchScreen");
     let ctx = canvas.getContext("2d");
