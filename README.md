@@ -5,6 +5,15 @@ This project contains a set of scripts trying to provide additional features and
 2. Adds `httpd` WEB service to your printer.
 3. Updates the `root` password to `flashforge`
 
+# FlashForge Adventurer 4 Dashboard
+* Desktop View
+  
+![Desktop](Images/Desktop-ADV4-Dashboard.png)
+
+* Mobile View
+  
+![Mobile](Images/Mobile-ADV4-Dashboard.png)
+
 # ATTENTION (PROCEED AT YOUR OWN RISK)
 While this installer package will add a SSH and HTTPD Services to your printer and modifies the root password to `flashforge` it does this by modifying the `auto_run.sh` script file which is used by the printer to manages updates and execute your printer's official software.
 
@@ -26,8 +35,6 @@ I have only tested against the Adventurer4-2.2.4-2.3-20230216 and the files used
   * Use your favorite SSH client to access the filesystem remotely!
   * Use your favorite Browser to view your printer's camera and UI!
   * Use OrcaSlicer's Device tab to view your prints in real-time!
-
-![WebUI](Images/OrcaSlicer-ADV4-WebUI-Printing.png)
 
 # Installation had no effect... lets debug!
 * If for some reason the update does not take effect, then execute the following steps and report back!
