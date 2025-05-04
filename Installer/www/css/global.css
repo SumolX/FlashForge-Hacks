@@ -77,6 +77,15 @@ button {
     border-color: #ffffff;
 }
 
+#btnBrowse {
+    background-color: #ff80d5;
+}
+
+#btnBrowse:hover {
+    background-color: #ff4dc4;
+    border-color: #ffffff;
+}
+
 #btnToggleLight {
     background-color: #5c6bc0;
 }
@@ -166,7 +175,7 @@ canvas#touchScreen {
 }
 
 @media (max-width: 992px) {
-    #btnPause, #btnResume, #btnCancel, #btnUpload, #btnToggleLight {
+    #btnPause, #btnResume, #btnCancel, #btnUpload, #btnBrowse, #btnToggleLight {
         float: none;
         display: block;
         width: 100%;

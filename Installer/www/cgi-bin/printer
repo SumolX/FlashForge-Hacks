@@ -5,75 +5,81 @@ BASEDIR=$(dirname "$0")
 . "$BASEDIR/constants"
 . "$BASEDIR/utils"
 
-# Handle: cgi-bin/printer?cancel
-on_cancel() {
-    echo "~M26\r\n" | nc localhost 8899 2>/dev/null
+# /cgi-bin/printer?start=filename
+printer_on_start() {
+    echo "~M23 0:/user/$1" | nc localhost 8899 2>/dev/null
     echo "Status: 200 OK"
 }
 
-# Handle: cgi-bin/printer?resume
-on_resume() {
-    echo "~M24\r\n" | nc localhost 8899 2>/dev/null
+# /cgi-bin/printer?cancel
+printer_on_cancel() {
+    echo "~M26" | nc localhost 8899 2>/dev/null
     echo "Status: 200 OK"
 }
 
-# Handle: cgi-bin/printer?pause
-on_pause() {
-    echo "~M25\r\n" | nc localhost 8899 2>/dev/null
+# /cgi-bin/printer?resume
+printer_on_resume() {
+    echo "~M24" | nc localhost 8899 2>/dev/null
     echo "Status: 200 OK"
 }
 
-# Handle: cgi-bin/printer?temperature
-on_temperature() {
-    echo "Content-type: text/html"
-    echo ""
-    echo "~M105\r\n" | nc localhost 8899
+# /cgi-bin/printer?pause
+printer_on_pause() {
+    echo "~M25" | nc localhost 8899 2>/dev/null
+    echo "Status: 200 OK"
 }
 
-# Handle: cgi-bin/printer?status
-on_status() {
+# /cgi-bin/printer?temperature
+printer_on_temperature() {
     echo "Content-type: text/html"
     echo ""
-    echo "~M27\r\n" | nc localhost 8899
+    echo "~M105" | nc localhost 8899
 }
 
-# Handle: cgi-bin/printer?endstop
-on_endstop() {
+# /cgi-bin/printer?status
+printer_on_status() {
     echo "Content-type: text/html"
     echo ""
-    echo "~M119\r\n" | nc localhost 8899
+    echo "~M27" | nc localhost 8899
 }
 
-# Handle: cgi-bin/printer?camera
-on_camera() {
+# /cgi-bin/printer?endstop
+printer_on_endstop() {
+    echo "Content-type: text/html"
+    echo ""
+    echo "~M119" | nc localhost 8899
+}
+
+# /cgi-bin/printer?camera
+printer_on_camera() {
     echo "Content-type: text/html"
     echo ""
     utils_get_camera_url
 }
 
-# Handle: cgi-bin/printer?camera-url-store=value
-on_camera_url_store() {
+# /cgi-bin/printer?camera-url-store=value
+printer_on_camera_url_store() {
     mkdir -p $CONF_PATH
     echo "$1" > $CONF_PATH/camera-url.cfg
     echo "Status: 200 OK"
 }
 
-# Handle: cgi-bin/printer?camera-url-clear
-on_camera_url_clear() {
+# /cgi-bin/printer?camera-url-clear
+printer_on_camera_url_clear() {
     rm -rf $CONF_PATH/camera-url.cfg
     echo "Status: 200 OK"
 }
 
-# Handle: cgi-bin/printer?lighton
-on_lighton() {
+# /cgi-bin/printer?lighton
+printer_on_lighton() {
     echo "Content-type: text/html"
     echo ""
     echo "~M146 r255 g255 b255" | nc localhost 8899 2>/dev/null
     echo "Status: 200 OK"
 }
 
-# Handle: cgi-bin/printer?lightoff
-on_lightoff() {
+# /cgi-bin/printer?lightoff
+printer_on_lightoff() {
     echo "Content-type: text/html"
     echo ""
     echo "~M146 r0 g0 b0" | nc localhost 8899 2>/dev/null
@@ -88,28 +94,30 @@ else
     IFS="&"
     set -- $QUERY_STRING
     key="${1%=*}"
-    if [ "$key" = "cancel" ]; then
-        on_cancel
+    if [ "$key" = "start" ]; then
+        printer_on_start "${1#*=}"
+    elif [ "$key" = "cancel" ]; then
+        printer_on_cancel
     elif [ "$key" = "resume" ]; then
-        on_resume
+        printer_on_resume
     elif [ "$key" = "pause" ]; then
-        on_pause
+        printer_on_pause
     elif [ "$key" = "temperature" ]; then
-        on_temperature
+        printer_on_temperature
     elif [ "$key" = "status" ]; then
-        on_status
+        printer_on_status
     elif [ "$key" = "endstop" ]; then
-        on_endstop
+        printer_on_endstop
     elif [ ${key} == "camera-url-store" ]; then
-        on_camera_url_store "${1#*=}"
+        printer_on_camera_url_store "${1#*=}"
     elif [ ${key} == "camera-url-clear" ]; then
-        on_camera_url_clear
+        printer_on_camera_url_clear
     elif [ "$key" = "camera" ]; then
-        on_camera
+        printer_on_camera
     elif [ "$key" = "lighton" ]; then
-        on_lighton
+        printer_on_lighton
     elif [ "$key" = "lightoff" ]; then
-        on_lightoff
+        printer_on_lightoff
     else
         echo "Status: 400 Bad Request"
         exit 1

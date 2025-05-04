@@ -32,6 +32,14 @@ function onPrintUpload() {
         fetch('/cgi-bin/filesystem?upload=' + file.name, {
             method: 'POST',
             body: file
+        })
+        .then(function(response) {
+            if (confirm("File was uploaded successfully, continue to print?") == true) {
+                postCommand('/cgi-bin/printer?start=' + file.name);
+            }
+        })
+        .catch(function(err) {
+           console.log(`Error: $(err)`);
         });
     });
     document.getElementById('uploadFile').click();
