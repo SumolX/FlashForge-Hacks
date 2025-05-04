@@ -24,6 +24,10 @@ h3 { font-size: 1.2em; }
 h4 { font-size: 1em; }
 h5 { font-size: 0.9em; }
 
+#uploadFile {
+    display: hidden;
+}
+
 button {
     background-color: #f0a500;
     color: white;
@@ -60,7 +64,25 @@ button {
 }
 
 #btnCancel:hover {
-    background-color: #d9263b; 
+    background-color: #d9263b;
+    border-color: #ffffff;
+}
+
+#btnUpload {
+    background-color: #ff80d5;
+}
+
+#btnUpload:hover {
+    background-color: #ff4dc4;
+    border-color: #ffffff;
+}
+
+#btnBrowse {
+    background-color: #ff80d5;
+}
+
+#btnBrowse:hover {
+    background-color: #ff4dc4;
     border-color: #ffffff;
 }
 
@@ -153,7 +175,7 @@ canvas#touchScreen {
 }
 
 @media (max-width: 992px) {
-    #btnPause, #btnResume, #btnCancel, #btnToggleLight {
+    #btnPause, #btnResume, #btnCancel, #btnUpload, #btnBrowse, #btnToggleLight {
         float: none;
         display: block;
         width: 100%;

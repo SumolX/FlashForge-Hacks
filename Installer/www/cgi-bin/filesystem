@@ -5,8 +5,8 @@ BASEDIR=$(dirname "$0")
 . "$BASEDIR/constants"
 . "$BASEDIR/utils"
 
-# Handlers
-on_list() {
+# /cgi-bin/filesystem
+fs_on_list() {
     firstpass=0
     echo "Content-Type: text/html"
     echo ""
@@ -22,9 +22,43 @@ on_list() {
     echo -e -n "]}"
 }
 
+# /cgi-bin/filesystem?download=filename
+fs_on_download() {
+    if test "$?" -eq 0 -a -f ${DATA_PATH}/$1; then
+        utils_send_binary_file "${DATA_PATH}" "$1"
+        echo "Status: 200 OK"
+    else
+        echo "Status: 404 Not Found"
+    fi
+}
+
+# /cgi-bin/filesystem?upload=filename
+fs_on_upload() {
+    file=$(mktemp)
+    cat - > $file
+    if [ "$(tail -n 1 < $file)" != "Status: 200 OK" ]; then
+        rm -rf $file
+        echo "Status: 409 Conflict"
+    else
+        sed -i '$ d' $file
+        mv $file ${DATA_PATH}/$1
+        echo "Status: 200 OK"
+    fi
+}
+
 # Parse Request: cgi-bin/list
 if [ -z $QUERY_STRING ]; then
-    on_list
+    fs_on_list
 else
-    echo "Status: 400 Bad Request"
+    IFS="&"
+    set -- $QUERY_STRING
+    key="${1%=*}"
+    if [ "$key" = "download" ]; then
+        fs_on_download "${1#*=}"
+    elif [ "$key" = "upload" ]; then
+        fs_on_upload "${1#*=}"
+    else
+        echo "Status: 400 Bad Request"
+        exit 1
+    fi
 fi

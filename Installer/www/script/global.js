@@ -22,6 +22,29 @@ function onPrintCancel() {
     }
 }
 
+function onPrintUpload() {
+    let upload = document.getElementById('uploadFile');
+    upload.onclick = function() {
+        this.value = null;
+    }
+    upload.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        fetch('/cgi-bin/filesystem?upload=' + file.name, {
+            method: 'POST',
+            body: file
+        })
+        .then(function(response) {
+            if (confirm("File was uploaded successfully, continue to print?") == true) {
+                postCommand('/cgi-bin/printer?start=' + file.name);
+            }
+        })
+        .catch(function(err) {
+           console.log(`Error: $(err)`);
+        });
+    });
+    document.getElementById('uploadFile').click();
+}
+
 let lightIsOn = false;
 
 function onToggleLight() {
