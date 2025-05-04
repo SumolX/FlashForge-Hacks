@@ -5,27 +5,32 @@ BASEDIR=$(dirname "$0")
 . "$BASEDIR/constants"
 . "$BASEDIR/utils"
 
+# Send marlin command
+printer_send() {
+    echo "$1" | nc localhost 8899 2>/dev/null
+}
+
 # /cgi-bin/printer?start=filename
 printer_on_start() {
-    echo "~M23 0:/user/$1" | nc localhost 8899 2>/dev/null
+    printer_send "~M23 0:/user/$1"
     echo "Status: 200 OK"
 }
 
 # /cgi-bin/printer?cancel
 printer_on_cancel() {
-    echo "~M26" | nc localhost 8899 2>/dev/null
+    printer_send "~M26"
     echo "Status: 200 OK"
 }
 
 # /cgi-bin/printer?resume
 printer_on_resume() {
-    echo "~M24" | nc localhost 8899 2>/dev/null
+    printer_send "~M24"
     echo "Status: 200 OK"
 }
 
 # /cgi-bin/printer?pause
 printer_on_pause() {
-    echo "~M25" | nc localhost 8899 2>/dev/null
+    printer_send "~M25"
     echo "Status: 200 OK"
 }
 
@@ -33,21 +38,21 @@ printer_on_pause() {
 printer_on_temperature() {
     echo "Content-type: text/html"
     echo ""
-    echo "~M105" | nc localhost 8899
+    printer_send "~M105"
 }
 
 # /cgi-bin/printer?status
 printer_on_status() {
     echo "Content-type: text/html"
     echo ""
-    echo "~M27" | nc localhost 8899
+    printer_send "~M27"
 }
 
 # /cgi-bin/printer?endstop
 printer_on_endstop() {
     echo "Content-type: text/html"
     echo ""
-    echo "~M119" | nc localhost 8899
+    printer_send "~M119"
 }
 
 # /cgi-bin/printer?camera
@@ -74,7 +79,7 @@ printer_on_camera_url_clear() {
 printer_on_lighton() {
     echo "Content-type: text/html"
     echo ""
-    echo "~M146 r255 g255 b255" | nc localhost 8899 2>/dev/null
+    printer_send "~M146 r255 g255 b255"
     echo "Status: 200 OK"
 }
 
@@ -82,7 +87,7 @@ printer_on_lighton() {
 printer_on_lightoff() {
     echo "Content-type: text/html"
     echo ""
-    echo "~M146 r0 g0 b0" | nc localhost 8899 2>/dev/null
+    printer_send "~M146 r0 g0 b0"
     echo "Status: 200 OK"    
 }
 
