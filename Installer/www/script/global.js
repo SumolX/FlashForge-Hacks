@@ -22,6 +22,21 @@ function onPrintCancel() {
     }
 }
 
+function onPrintUpload() {
+    let upload = document.getElementById('uploadFile');
+    upload.onclick = function() {
+        this.value = null;
+    }
+    upload.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        fetch('/cgi-bin/filesystem?upload=' + file.name, {
+            method: 'POST',
+            body: file
+        });
+    });
+    document.getElementById('uploadFile').click();
+}
+
 let lightIsOn = false;
 
 function onToggleLight() {
